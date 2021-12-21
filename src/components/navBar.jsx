@@ -31,7 +31,6 @@ const NavBar = ({ user }) => {
           </NavLink>
          {
            !user && (<React.Fragment>
-           {/* {console.log("!user works")} */}
            <NavLink className="nav-item nav-link" to="/login">
             Login
           </NavLink>
@@ -42,9 +41,8 @@ const NavBar = ({ user }) => {
          {
            user && (
              <React.Fragment>
-           {/* {console.log(" org user works")} */}
            <NavLink className="nav-item nav-link" to="/profile">
-            {user.name}
+            Logged user
           </NavLink>
           <NavLink className="nav-item nav-link" to="/logout">
             Logout

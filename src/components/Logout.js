@@ -5,7 +5,7 @@ class Logout extends React.Component {
 
     componentDidMount() {
        auth.logout();
-       window.location = "/"
+       window.location = "/login"
     }
 
     render() { 

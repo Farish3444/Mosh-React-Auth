@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
-import jwtDecode from 'jwt-decode';
+
 
 import Movies from "./components/movies";
 import MovieForm from "./components/movieForm";
@@ -11,6 +11,7 @@ import NavBar from "./components/navBar";
 import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
 import Logout from "./components/Logout";
+import auth from './services/authService';
 
 import "./App.css";
 import { ToastContainer } from 'react-toastify'
@@ -20,29 +21,25 @@ class App extends Component {
 
   state={};
 
-  componentDidMount() {
-    try{
-    const jwt = localStorage.getItem("token");
-    const user = jwtDecode(jwt);
-    console.log(user)
-    }
-    catch(ex){
-      console.log("Expired Token in local Storage")
-    }
+  componentDidMount() {   
+    auth.getCurrentUser();
   }
 
   render() {
+
+    const user = this.state
+
     return (
       <React.Fragment>
         <ToastContainer />
-        <NavBar user={this.state.user}/>
+        <NavBar user={user} />
         <main className="container">
           <Switch>
             <Route path="/register" component={RegisterForm} />
             <Route path="/login" component={LoginForm} />
             <Route path="/logout" component={Logout} />
             <Route path="/movies/:id" component={MovieForm} />
-            <Route path="/movies" component={Movies} />
+            <Route path="/movies" render={props => <Movies {...props} user={user}/>} />
             <Route path="/customers" component={Customers} />
             <Route path="/rentals" component={Rentals} />
             <Route path="/not-found" component={NotFound} />
