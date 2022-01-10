@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 const NavBar = ({ user }) => {
+  const renderUserName = (user) => {
+    if (user && user.user && user.user.name) {
+      return (
+        <React.Fragment>
+          <NavLink className="nav-item nav-link" to="/profile">
+            {user.user.name}
+          </NavLink>
+          <NavLink className="nav-item nav-link" to="/logout">
+            Logout
+          </NavLink>
+        </React.Fragment>
+      );
+    }
+    return <div></div>;
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <Link className="navbar-brand" to="/">
@@ -29,26 +45,18 @@ const NavBar = ({ user }) => {
           <NavLink className="nav-item nav-link" to="/rentals">
             Rentals
           </NavLink>
-         {
-           !user && (<React.Fragment>
-           <NavLink className="nav-item nav-link" to="/login">
-            Login
-          </NavLink>
-          <NavLink className="nav-item nav-link" to="/register">
-            Register
-          </NavLink>
-           </React.Fragment>)}
-         {
-           user && (
-             <React.Fragment>
-           <NavLink className="nav-item nav-link" to="/profile">
-            Logged user
-          </NavLink>
-          <NavLink className="nav-item nav-link" to="/logout">
-            Logout
-          </NavLink>
-           </React.Fragment>)
-         }
+          {renderUserName(user)}
+          {(!user || !user.user || !user.user.name) && (
+            <React.Fragment>
+              <NavLink className="nav-item nav-link" to="/login">
+                Login
+              </NavLink>
+              <NavLink className="nav-item nav-link" to="/register">
+                Register
+              </NavLink>
+            </React.Fragment>
+          )}
+          {/* {console.log(user,"<---The detail")} */}
         </div>
       </div>
     </nav>

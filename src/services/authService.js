@@ -20,6 +20,7 @@ export function loginWithJwt(jwt){
 export function getCurrentUser(){
     try{
         const jwt = localStorage.getItem("token");
+        console.log(jwt)
         return jwtDecode(jwt);
         }
         catch(ex){

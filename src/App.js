@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 
-
 import Movies from "./components/movies";
 import MovieForm from "./components/movieForm";
 import Customers from "./components/customers";
@@ -23,13 +22,16 @@ class App extends Component {
   state={};
 
   componentDidMount() {   
-    auth.getCurrentUser();
+  const user =  auth.getCurrentUser();
+    this.setState({ user });
   }
 
   render() {
 
     const user = this.state
 
+    console.log(user,'<---the user data');
+    
     return (
       <React.Fragment>
         <ToastContainer />
